@@ -1,5 +1,5 @@
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import SignedConv
 from torch_geometric.testing import is_full_test

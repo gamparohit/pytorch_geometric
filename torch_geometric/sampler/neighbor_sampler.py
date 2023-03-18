@@ -226,14 +226,14 @@ class NeighborSampler(BaseSampler):
                     batch = {k: v[0] for k, v in node.items()}
                     node = {k: v[1] for k, v in node.items()}
 
-            elif torch_geometric.typing.WITH_TORCH_SPARSE:
+            elif torch_geometric.typing.WITH_isplib:
                 if self.disjoint:
                     raise ValueError("'disjoint' sampling not supported for "
                                      "neighbor sampling via 'torch-sparse'. "
                                      "Please install 'pyg-lib' for improved "
                                      "and optimized sampling routines.")
 
-                out = torch.ops.torch_sparse.hetero_neighbor_sample(
+                out = torch.ops.isplib.hetero_neighbor_sample(
                     self.node_types,
                     self.edge_types,
                     self.colptr_dict,
@@ -295,14 +295,14 @@ class NeighborSampler(BaseSampler):
                 if self.disjoint:
                     batch, node = node.t().contiguous()
 
-            elif torch_geometric.typing.WITH_TORCH_SPARSE:
+            elif torch_geometric.typing.WITH_isplib:
                 if self.disjoint:
                     raise ValueError("'disjoint' sampling not supported for "
                                      "neighbor sampling via 'torch-sparse'. "
                                      "Please install 'pyg-lib' for improved "
                                      "and optimized sampling routines.")
 
-                out = torch.ops.torch_sparse.neighbor_sample(
+                out = torch.ops.isplib.neighbor_sample(
                     self.colptr,
                     self.row,
                     seed,  # seed

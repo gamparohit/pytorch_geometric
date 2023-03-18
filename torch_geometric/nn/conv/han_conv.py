@@ -124,7 +124,7 @@ class HANConv(MessagePassing):
                 dictionary holding graph connectivity information for each
                 individual edge type, either as a :class:`torch.Tensor` of
                 shape :obj:`[2, num_edges]` or a
-                :class:`torch_sparse.SparseTensor`.
+                :class:`isplib.SparseTensor`.
             return_semantic_attention_weights (bool, optional): If set to
                 :obj:`True`, will additionally return the semantic-level
                 attention weights for each destination node type.

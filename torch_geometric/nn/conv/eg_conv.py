@@ -8,7 +8,7 @@ from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.nn.conv.gcn_conv import gcn_norm
 from torch_geometric.nn.dense.linear import Linear
 from torch_geometric.nn.inits import zeros
-from torch_geometric.typing import Adj, OptTensor, SparseTensor, torch_sparse
+from torch_geometric.typing import Adj, OptTensor, SparseTensor, isplib
 from torch_geometric.utils import add_remaining_self_loops, scatter, spmm
 
 
@@ -162,7 +162,7 @@ class EGConv(MessagePassing):
                 if self.cached and cache is not None:
                     edge_index = cache
                 else:
-                    edge_index = torch_sparse.fill_diag(edge_index, 1.0)
+                    edge_index = isplib.fill_diag(edge_index, 1.0)
                     if self.cached:
                         self._cached_adj_t = edge_index
 

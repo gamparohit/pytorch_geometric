@@ -6,7 +6,7 @@ from torch import Tensor
 from torch.nn import Parameter
 
 from torch_geometric.nn.conv import MessagePassing
-from torch_geometric.typing import Adj, OptTensor, SparseTensor, torch_sparse
+from torch_geometric.typing import Adj, OptTensor, SparseTensor, isplib
 from torch_geometric.utils import add_self_loops, remove_self_loops, softmax
 
 
@@ -68,7 +68,7 @@ class AGNNConv(MessagePassing):
                 edge_index, _ = add_self_loops(edge_index,
                                                num_nodes=x.size(self.node_dim))
             elif isinstance(edge_index, SparseTensor):
-                edge_index = torch_sparse.set_diag(edge_index)
+                edge_index = isplib.set_diag(edge_index)
 
         x_norm = F.normalize(x, p=2., dim=-1)
 

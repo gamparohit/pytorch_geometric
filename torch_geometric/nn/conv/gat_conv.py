@@ -14,11 +14,11 @@ from torch_geometric.typing import (
     OptTensor,
     Size,
     SparseTensor,
-    torch_sparse,
+    isplib,
 )
 from torch_geometric.utils import (
     add_self_loops,
-    is_torch_sparse_tensor,
+    is_isplib_tensor,
     remove_self_loops,
     softmax,
 )
@@ -242,7 +242,7 @@ class GATConv(MessagePassing):
                     num_nodes=num_nodes)
             elif isinstance(edge_index, SparseTensor):
                 if self.edge_dim is None:
-                    edge_index = torch_sparse.set_diag(edge_index)
+                    edge_index = isplib.set_diag(edge_index)
                 else:
                     raise NotImplementedError(
                         "The usage of 'edge_attr' and 'add_self_loops' "
@@ -265,7 +265,7 @@ class GATConv(MessagePassing):
 
         if isinstance(return_attention_weights, bool):
             if isinstance(edge_index, Tensor):
-                if is_torch_sparse_tensor(edge_index):
+                if is_isplib_tensor(edge_index):
                     # TODO TorchScript requires to return a tuple
                     adj = set_sparse_value(edge_index, alpha)
                     return out, (adj, alpha)

@@ -328,7 +328,7 @@ class RGATConv(MessagePassing):
             edge_type (torch.Tensor, optional): The one-dimensional relation
                 type/index for each edge in :obj:`edge_index`.
                 Should be only :obj:`None` in case :obj:`edge_index` is of type
-                :class:`torch_sparse.SparseTensor`. (default: :obj:`None`)
+                :class:`isplib.SparseTensor`. (default: :obj:`None`)
             edge_attr (torch.Tensor, optional): The edge features.
                 (default: :obj:`None`)
             return_attention_weights (bool, optional): If set to :obj:`True`,

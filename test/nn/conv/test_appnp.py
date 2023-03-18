@@ -1,5 +1,5 @@
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import APPNP
 from torch_geometric.testing import is_full_test
@@ -10,7 +10,7 @@ def test_appnp():
     edge_index = torch.tensor([[0, 0, 0, 1, 2, 3], [1, 2, 3, 0, 0, 0]])
     row, col = edge_index
     adj1 = SparseTensor(row=row, col=col, sparse_sizes=(4, 4))
-    adj2 = adj1.to_torch_sparse_csc_tensor()
+    adj2 = adj1.to_isplib_csc_tensor()
 
     conv = APPNP(K=3, alpha=0.1, cached=True)
     assert str(conv) == 'APPNP(K=3, alpha=0.1)'
@@ -44,7 +44,7 @@ def test_appnp_dropout():
     edge_index = torch.tensor([[0, 0, 0, 1, 2, 3], [1, 2, 3, 0, 0, 0]])
     row, col = edge_index
     adj1 = SparseTensor(row=row, col=col, sparse_sizes=(4, 4))
-    adj2 = adj1.to_torch_sparse_csc_tensor()
+    adj2 = adj1.to_isplib_csc_tensor()
 
     # With dropout probability of 1.0, the final output equals to alpha * x:
     conv = APPNP(K=2, alpha=0.1, dropout=1.0)

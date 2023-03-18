@@ -6,7 +6,7 @@ from typing import Optional
 import torch
 import torch.utils.data
 
-from torch_geometric.typing import SparseTensor, torch_sparse
+from torch_geometric.typing import SparseTensor, isplib
 from torch_geometric.utils import narrow, select
 
 
@@ -152,7 +152,7 @@ class ClusterLoader(torch.utils.data.DataLoader):
         data = copy.copy(self.cluster_data.data)
 
         adj, data.adj = self.cluster_data.data.adj, None
-        adj = torch_sparse.cat(
+        adj = isplib.cat(
             [adj.narrow(0, s, e - s) for s, e in zip(start, end)], dim=0)
         adj = adj.index_select(1, node_idx)
         row, col, edge_idx = adj.coo()

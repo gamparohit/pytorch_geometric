@@ -2,7 +2,7 @@ import torch
 from torch.nn import Linear as Lin
 from torch.nn import ReLU
 from torch.nn import Sequential as Seq
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import DynamicEdgeConv, EdgeConv
 from torch_geometric.testing import is_full_test, withPackage
@@ -14,7 +14,7 @@ def test_edge_conv_conv():
     edge_index = torch.tensor([[0, 1, 2, 3], [0, 0, 1, 1]])
     row, col = edge_index
     adj1 = SparseTensor(row=row, col=col, sparse_sizes=(4, 4))
-    adj2 = adj1.to_torch_sparse_csc_tensor()
+    adj2 = adj1.to_isplib_csc_tensor()
 
     nn = Seq(Lin(32, 16), ReLU(), Lin(16, 32))
     conv = EdgeConv(nn)
@@ -33,7 +33,7 @@ def test_edge_conv_conv():
     assert torch.allclose(conv((x1, x1), adj2.t()), out1, atol=1e-6)
 
     adj1 = adj1.sparse_resize((4, 2))
-    adj2 = adj1.to_torch_sparse_csc_tensor()
+    adj2 = adj1.to_isplib_csc_tensor()
     out2 = conv((x1, x2), edge_index)
     assert out2.size() == (2, 32)
     assert torch.allclose(conv((x1, x2), adj1.t()), out2, atol=1e-6)

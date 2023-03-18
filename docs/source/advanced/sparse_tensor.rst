@@ -65,13 +65,13 @@ where :math:`\mathbf{A}` denotes a sparse adjacency matrix of shape :obj:`[num_n
 This formulation allows to leverage dedicated and fast sparse-matrix multiplication implementations.
 
 In :pyg:`null` **PyG >= 1.6.0**, we officially introduce better support for sparse-matrix multiplication GNNs, resulting in a **lower memory footprint** and a **faster execution time**.
-As a result, we introduce the :class:`SparseTensor` class (from the :obj:`torch_sparse` package), which implements fast forward and backward passes for sparse-matrix multiplication based on the `"Design Principles for Sparse Matrix Multiplication on the GPU" <https://arxiv.org/abs/1803.08601>`_ paper.
+As a result, we introduce the :class:`SparseTensor` class (from the :obj:`isplib` package), which implements fast forward and backward passes for sparse-matrix multiplication based on the `"Design Principles for Sparse Matrix Multiplication on the GPU" <https://arxiv.org/abs/1803.08601>`_ paper.
 
 Using the :class:`SparseTensor` class is straightforward and similar to the way :obj:`scipy` treats sparse matrices:
 
 .. code-block:: python
 
-    from torch_sparse import SparseTensor
+    from isplib import SparseTensor
 
     adj = SparseTensor(row=edge_index[0], col=edge_index[1], value=...,
                        sparse_sizes=(num_nodes, num_nodes))
@@ -113,7 +113,7 @@ With it, the :class:`~torch_geometric.nn.conv.GINConv` layer can now be implemen
 
 .. code-block:: python
 
-    import torch_sparse
+    import isplib
 
     class GINConv(MessagePassing):
         def __init__(self):
@@ -127,7 +127,7 @@ With it, the :class:`~torch_geometric.nn.conv.GINConv` layer can now be implemen
             return x_j
 
         def message_and_aggregate(self, adj_t, x):
-            return torch_sparse.matmul(adj_t, x, reduce=self.aggr)
+            return isplib.matmul(adj_t, x, reduce=self.aggr)
 
 Playing around with the new :class:`SparseTensor` format is straightforward since all of our GNNs work with it out-of-the-box.
 To convert the :obj:`edge_index` format to the newly introduced :class:`SparseTensor` format, you can make use of the :class:`torch_geometric.transforms.ToSparseTensor` transform:

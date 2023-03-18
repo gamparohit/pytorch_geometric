@@ -1,7 +1,7 @@
 GNN Cheatsheet
 ==============
 
-* :class:`~torch_sparse.SparseTensor`: If checked (✓), supports message passing based on :class:`torch_sparse.SparseTensor`, *e.g.*, :obj:`GCNConv(...).forward(x, adj_t)`. See `here <../advanced/sparse_tensor.html>`__ for the accompanying tutorial.
+* :class:`~isplib.SparseTensor`: If checked (✓), supports message passing based on :class:`isplib.SparseTensor`, *e.g.*, :obj:`GCNConv(...).forward(x, adj_t)`. See `here <../advanced/sparse_tensor.html>`__ for the accompanying tutorial.
 
 * :obj:`edge_weight`: If checked (✓), supports message passing with one-dimensional edge weight information, *e.g.*, :obj:`GraphConv(...).forward(x, edge_index, edge_weight)`.
 
@@ -21,7 +21,7 @@ Graph Neural Network Operators
     :header-rows: 1
 
     * - Name
-      - :class:`~torch_sparse.SparseTensor`
+      - :class:`~isplib.SparseTensor`
       - :obj:`edge_weight`
       - :obj:`edge_attr`
       - bipartite
@@ -49,7 +49,7 @@ Heterogeneous Graph Neural Network Operators
     :header-rows: 1
 
     * - Name
-      - :class:`~torch_sparse.SparseTensor`
+      - :class:`~isplib.SparseTensor`
       - :obj:`edge_weight`
       - :obj:`edge_attr`
       - bipartite
@@ -75,7 +75,7 @@ Hypergraph Neural Network Operators
     :header-rows: 1
 
     * - Name
-      - :class:`~torch_sparse.SparseTensor`
+      - :class:`~isplib.SparseTensor`
       - :obj:`edge_weight`
       - :obj:`edge_attr`
       - bipartite

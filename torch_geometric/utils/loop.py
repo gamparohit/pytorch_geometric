@@ -7,7 +7,7 @@ from torch_geometric.typing import OptTensor
 from torch_geometric.utils import scatter
 
 from .num_nodes import maybe_num_nodes
-from .sparse import is_torch_sparse_tensor, to_edge_index, to_torch_coo_tensor
+from .sparse import is_isplib_tensor, to_edge_index, to_torch_coo_tensor
 
 
 def contains_self_loops(edge_index: Tensor) -> bool:
@@ -63,7 +63,7 @@ def remove_self_loops(
     """
     size: Optional[Tuple[int, int]] = None
 
-    is_sparse = is_torch_sparse_tensor(edge_index)
+    is_sparse = is_isplib_tensor(edge_index)
     if is_sparse:
         assert edge_attr is None
         size = (edge_index.size(0), edge_index.size(1))
@@ -217,7 +217,7 @@ def add_self_loops(
                 [1, 0, 0, 0, 1]]),
         tensor([0.5000, 0.5000, 0.5000, 1.0000, 0.5000]))
     """
-    is_sparse = is_torch_sparse_tensor(edge_index)
+    is_sparse = is_isplib_tensor(edge_index)
 
     if is_sparse:
         assert edge_attr is None

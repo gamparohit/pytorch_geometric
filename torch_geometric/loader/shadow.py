@@ -5,7 +5,7 @@ import torch
 from torch import Tensor
 
 from torch_geometric.data import Batch, Data
-from torch_geometric.typing import WITH_TORCH_SPARSE, SparseTensor
+from torch_geometric.typing import WITH_isplib, SparseTensor
 
 
 class ShaDowKHopSampler(torch.utils.data.DataLoader):
@@ -40,7 +40,7 @@ class ShaDowKHopSampler(torch.utils.data.DataLoader):
                  node_idx: Optional[Tensor] = None, replace: bool = False,
                  **kwargs):
 
-        if not WITH_TORCH_SPARSE:
+        if not WITH_isplib:
             raise ImportError(
                 f"'{self.__class__.__name__}' requires 'torch-sparse'")
 
@@ -72,7 +72,7 @@ class ShaDowKHopSampler(torch.utils.data.DataLoader):
         n_id = torch.tensor(n_id)
 
         rowptr, col, value = self.adj_t.csr()
-        out = torch.ops.torch_sparse.ego_k_hop_sample_adj(
+        out = torch.ops.isplib.ego_k_hop_sample_adj(
             rowptr, col, n_id, self.depth, self.num_neighbors, self.replace)
         rowptr, col, n_id, e_id, ptr, root_n_id = out
 
@@ -81,7 +81,7 @@ class ShaDowKHopSampler(torch.utils.data.DataLoader):
                              sparse_sizes=(n_id.numel(), n_id.numel()),
                              is_sorted=True, trust_data=True)
 
-        batch = Batch(batch=torch.ops.torch_sparse.ptr2ind(ptr, n_id.numel()),
+        batch = Batch(batch=torch.ops.isplib.ptr2ind(ptr, n_id.numel()),
                       ptr=ptr)
         batch.root_n_id = root_n_id
 

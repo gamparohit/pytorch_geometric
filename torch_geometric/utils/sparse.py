@@ -53,7 +53,7 @@ def dense_to_sparse(adj: Tensor) -> Tuple[Tensor, Tensor]:
         return torch.stack([row, col], dim=0), edge_attr
 
 
-def is_torch_sparse_tensor(src: Any) -> bool:
+def is_isplib_tensor(src: Any) -> bool:
     r"""Returns :obj:`True` if the input :obj:`src` is a
     :class:`torch.sparse.Tensor` (in any sparse layout).
 
@@ -73,12 +73,12 @@ def is_torch_sparse_tensor(src: Any) -> bool:
 def is_sparse(src: Any) -> bool:
     r"""Returns :obj:`True` if the input :obj:`src` is of type
     :class:`torch.sparse.Tensor` (in any sparse layout) or of type
-    :class:`torch_sparse.SparseTensor`.
+    :class:`isplib.SparseTensor`.
 
     Args:
         src (Any): The input object to be checked.
     """
-    return is_torch_sparse_tensor(src) or isinstance(src, SparseTensor)
+    return is_isplib_tensor(src) or isinstance(src, SparseTensor)
 
 
 def to_torch_coo_tensor(
@@ -205,7 +205,7 @@ def to_torch_csc_tensor(
 
 def to_edge_index(adj: Union[Tensor, SparseTensor]) -> Tuple[Tensor, Tensor]:
     r"""Converts a :class:`torch.sparse.Tensor` or a
-    :class:`torch_sparse.SparseTensor` to edge indices and edge attributes.
+    :class:`isplib.SparseTensor` to edge indices and edge attributes.
 
     Args:
         adj (torch.sparse.Tensor or SparseTensor): The adjacency matrix.

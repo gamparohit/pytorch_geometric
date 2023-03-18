@@ -134,7 +134,7 @@ class HGTConv(MessagePassing):
                 dictionary holding graph connectivity information for each
                 individual edge type, either as a :class:`torch.Tensor` of
                 shape :obj:`[2, num_edges]` or a
-                :class:`torch_sparse.SparseTensor`.
+                :class:`isplib.SparseTensor`.
 
         :rtype: :obj:`Dict[str, Optional[torch.Tensor]]` - The output node
             embeddings for each node type.

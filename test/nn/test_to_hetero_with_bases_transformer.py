@@ -4,7 +4,7 @@ import pytest
 import torch
 from torch import Tensor
 from torch.nn import Linear, ReLU, Sequential
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import (
     GINEConv,

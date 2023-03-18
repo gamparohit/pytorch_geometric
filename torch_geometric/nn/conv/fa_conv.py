@@ -7,7 +7,7 @@ from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.nn.conv.gcn_conv import gcn_norm
 from torch_geometric.nn.dense.linear import Linear
 from torch_geometric.typing import Adj, OptPairTensor, OptTensor, SparseTensor
-from torch_geometric.utils import is_torch_sparse_tensor
+from torch_geometric.utils import is_isplib_tensor
 from torch_geometric.utils.sparse import set_sparse_value
 
 
@@ -137,7 +137,7 @@ class FAConv(MessagePassing):
                     edge_index = cache
         else:
             if isinstance(edge_index,
-                          Tensor) and not is_torch_sparse_tensor(edge_index):
+                          Tensor) and not is_isplib_tensor(edge_index):
                 assert edge_weight is not None
             elif isinstance(edge_index, SparseTensor):
                 assert edge_index.has_value()
@@ -158,7 +158,7 @@ class FAConv(MessagePassing):
         if isinstance(return_attention_weights, bool):
             assert alpha is not None
             if isinstance(edge_index, Tensor):
-                if is_torch_sparse_tensor(edge_index):
+                if is_isplib_tensor(edge_index):
                     # TODO TorchScript requires to return a tuple
                     adj = set_sparse_value(edge_index, alpha)
                     return out, (adj, alpha)

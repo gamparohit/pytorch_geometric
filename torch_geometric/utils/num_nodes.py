@@ -6,7 +6,7 @@ from torch import Tensor
 
 from torch_geometric.typing import SparseTensor  # noqa
 
-from .sparse import is_torch_sparse_tensor
+from .sparse import is_isplib_tensor
 
 
 @torch.jit._overload
@@ -25,7 +25,7 @@ def maybe_num_nodes(edge_index, num_nodes=None):
     if num_nodes is not None:
         return num_nodes
     elif isinstance(edge_index, Tensor):
-        if is_torch_sparse_tensor(edge_index):
+        if is_isplib_tensor(edge_index):
             return max(edge_index.size(0), edge_index.size(1))
         return int(edge_index.max()) + 1 if edge_index.numel() > 0 else 0
     else:

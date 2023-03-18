@@ -78,7 +78,7 @@ class NeighborSampler(torch.utils.data.DataLoader):
 
     Args:
         edge_index (Tensor or SparseTensor): A :obj:`torch.LongTensor` or a
-            :class:`torch_sparse.SparseTensor` that defines the underlying
+            :class:`isplib.SparseTensor` that defines the underlying
             graph connectivity/message passing flow.
             :obj:`edge_index` holds the indices of a (sparse) symmetric
             adjacency matrix.
@@ -86,7 +86,7 @@ class NeighborSampler(torch.utils.data.DataLoader):
             must be defined as :obj:`[2, num_edges]`, where messages from nodes
             :obj:`edge_index[0]` are sent to nodes in :obj:`edge_index[1]`
             (in case :obj:`flow="source_to_target"`).
-            If :obj:`edge_index` is of type :class:`torch_sparse.SparseTensor`,
+            If :obj:`edge_index` is of type :class:`isplib.SparseTensor`,
             its sparse indices :obj:`(row, col)` should relate to
             :obj:`row = edge_index[1]` and :obj:`col = edge_index[0]`.
             The major difference between both formats is that we need to input

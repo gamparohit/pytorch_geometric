@@ -4,8 +4,8 @@ import torch
 from torch import Tensor
 
 import torch_geometric.typing
-from torch_geometric.typing import Adj, SparseTensor, torch_sparse
-from torch_geometric.utils import is_torch_sparse_tensor, scatter
+from torch_geometric.typing import Adj, SparseTensor, isplib
+from torch_geometric.utils import is_isplib_tensor, scatter
 
 
 @torch.jit._overload
@@ -24,8 +24,8 @@ def spmm(src: Adj, other: Tensor, reduce: str = "sum") -> Tensor:
     """Matrix product of sparse matrix with dense matrix.
 
     Args:
-        src (Tensor or torch_sparse.SparseTensor]): The input sparse matrix,
-            either a :class:`torch_sparse.SparseTensor` or a
+        src (Tensor or isplib.SparseTensor]): The input sparse matrix,
+            either a :class:`isplib.SparseTensor` or a
             :class:`torch.sparse.Tensor`.
         other (Tensor): The input dense matrix.
         reduce (str, optional): The reduce operation to use
@@ -43,12 +43,12 @@ def spmm(src: Adj, other: Tensor, reduce: str = "sum") -> Tensor:
         if (torch_geometric.typing.WITH_PT2 and other.dim() == 2
                 and not src.is_cuda()):
             # Use optimized PyTorch `torch.sparse.mm` path:
-            csr = src.to_torch_sparse_csr_tensor()
+            csr = src.to_isplib_csr_tensor()
             return torch.sparse.mm(csr, other, reduce)
-        return torch_sparse.matmul(src, other, reduce)
+        return isplib.matmul(src, other, reduce)
 
-    if not is_torch_sparse_tensor(src):
-        raise ValueError("`src` must be a `torch_sparse.SparseTensor` "
+    if not is_isplib_tensor(src):
+        raise ValueError("`src` must be a `isplib.SparseTensor` "
                          f"or a `torch.sparse.Tensor` (got {type(src)}).")
 
     # `torch.sparse.mm` only supports reductions on CPU for PyTorch>=2.0.

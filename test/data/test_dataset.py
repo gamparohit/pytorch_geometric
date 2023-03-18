@@ -2,7 +2,7 @@ import copy
 
 import pytest
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.data import Data, HeteroData, InMemoryDataset
 

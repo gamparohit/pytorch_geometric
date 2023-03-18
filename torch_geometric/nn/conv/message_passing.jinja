@@ -4,7 +4,7 @@ from torch_geometric.typing import *
 
 import torch
 from torch import Tensor
-from torch_geometric.typing import SparseTensor, torch_sparse
+from torch_geometric.typing import SparseTensor, isplib
 from torch_geometric.nn.conv.message_passing import *
 from {{module}} import *
 
@@ -72,7 +72,7 @@ class {{cls_name}}({{parent_cls_name}}):
 
         raise ValueError(
             ('`MessagePassing.propagate` only supports integer tensors of '
-             'shape `[2, num_messages]` or `torch_sparse.SparseTensor` for '
+             'shape `[2, num_messages]` or `isplib.SparseTensor` for '
              'argument `edge_index`.'))
 
     @torch.jit._overload_method

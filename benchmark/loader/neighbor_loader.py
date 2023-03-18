@@ -116,7 +116,7 @@ if __name__ == '__main__':
     add('--hetero-neighbor_sizes', default=[[5], [10], [10, 5]],
         type=ast.literal_eval)
     add('--use-sparse-tensor', action='store_true',
-        help='use torch_sparse.SparseTensor as graph storage format')
+        help='use isplib.SparseTensor as graph storage format')
     add('--num-workers', type=int, default=0,
         help="Number of DataLoader workers to use.")
     add('--runs', type=int, default=3,

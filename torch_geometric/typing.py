@@ -32,15 +32,15 @@ except (ImportError, OSError) as e:
     WITH_TORCH_SCATTER = False
 
 try:
-    import torch_sparse  # noqa
-    from torch_sparse import SparseTensor
-    WITH_TORCH_SPARSE = True
+    import isplib  # noqa
+    from isplib import SparseTensor
+    WITH_isplib = True
 except (ImportError, OSError) as e:
     if isinstance(e, OSError):
         warnings.warn(f"An issue occurred while importing 'torch-sparse'. "
                       f"Disabling its usage. Stacktrace: {e}")
-    torch_sparse = object
-    WITH_TORCH_SPARSE = False
+    isplib = object
+    WITH_isplib = False
 
     class SparseTensor:
         def __init__(self, *args, **kwargs):

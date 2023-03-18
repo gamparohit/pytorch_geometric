@@ -89,7 +89,7 @@ class HeteroConv(torch.nn.Module):
                 dictionary holding graph connectivity information for each
                 individual edge type, either as a :class:`torch.Tensor` of
                 shape :obj:`[2, num_edges]` or a
-                :class:`torch_sparse.SparseTensor`.
+                :class:`isplib.SparseTensor`.
             *args_dict (optional): Additional forward arguments of invididual
                 :class:`torch_geometric.nn.conv.MessagePassing` layers.
             **kwargs_dict (optional): Additional forward arguments of

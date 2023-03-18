@@ -1,6 +1,6 @@
 import pytest
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import GENConv
 from torch_geometric.testing import is_full_test
@@ -19,8 +19,8 @@ def test_gen_conv(aggr):
     value = torch.randn(row.size(0), 16)
     adj1 = SparseTensor(row=row, col=col, sparse_sizes=(4, 4))
     adj2 = SparseTensor(row=row, col=col, value=value, sparse_sizes=(4, 4))
-    adj3 = adj1.to_torch_sparse_coo_tensor()
-    adj4 = adj2.to_torch_sparse_coo_tensor()
+    adj3 = adj1.to_isplib_coo_tensor()
+    adj4 = adj2.to_isplib_coo_tensor()
 
     conv = GENConv(16, 32, aggr, edge_dim=16, msg_norm=True)
     assert str(conv) == f'GENConv(16, 32, aggr={aggr})'
@@ -52,8 +52,8 @@ def test_gen_conv(aggr):
 
     adj1 = adj1.sparse_resize((4, 2))
     adj2 = adj2.sparse_resize((4, 2))
-    adj3 = adj1.to_torch_sparse_coo_tensor()
-    adj4 = adj2.to_torch_sparse_coo_tensor()
+    adj3 = adj1.to_isplib_coo_tensor()
+    adj4 = adj2.to_isplib_coo_tensor()
 
     out21 = conv((x1, x2), edge_index)
     assert out21.size() == (2, 32)
@@ -87,7 +87,7 @@ def test_gen_conv(aggr):
     x1 = torch.randn(4, 8)
     x2 = torch.randn(2, 16)
     adj1 = adj1.sparse_resize((4, 2))
-    adj2 = adj1.to_torch_sparse_coo_tensor()
+    adj2 = adj1.to_isplib_coo_tensor()
     conv = GENConv((8, 16), 32, aggr)
     assert str(conv) == f'GENConv((8, 16), 32, aggr={aggr})'
     out1 = conv((x1, x2), edge_index)
@@ -102,7 +102,7 @@ def test_gen_conv(aggr):
 
     value = torch.randn(row.size(0), 4)
     adj1 = SparseTensor(row=row, col=col, value=value, sparse_sizes=(4, 2))
-    adj2 = adj1.to_torch_sparse_coo_tensor()
+    adj2 = adj1.to_isplib_coo_tensor()
     conv = GENConv((-1, -1), 32, aggr, edge_dim=-1)
     assert str(conv) == f'GENConv((-1, -1), 32, aggr={aggr})'
     out1 = conv((x1, x2), edge_index, value)

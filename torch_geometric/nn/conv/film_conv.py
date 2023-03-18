@@ -11,7 +11,7 @@ from torch_geometric.typing import (
     OptTensor,
     PairTensor,
     SparseTensor,
-    torch_sparse,
+    isplib,
 )
 
 from ..inits import reset
@@ -139,7 +139,7 @@ class FiLMConv(MessagePassing):
                     edge_type = edge_index.storage.value()
                     assert edge_type is not None
                     mask = edge_type == i
-                    adj_t = torch_sparse.masked_select_nnz(
+                    adj_t = isplib.masked_select_nnz(
                         edge_index, mask, layout='coo')
                     out = out + self.propagate(adj_t, x=lin(x[0]), beta=beta,
                                                gamma=gamma, size=None)

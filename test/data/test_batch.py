@@ -2,7 +2,7 @@ import os.path as osp
 
 import numpy as np
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 import torch_geometric
 from torch_geometric.data import Batch, Data, HeteroData

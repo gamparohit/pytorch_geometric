@@ -12,11 +12,11 @@ from torch_geometric.typing import (
     OptPairTensor,
     OptTensor,
     SparseTensor,
-    torch_sparse,
+    isplib,
 )
 from torch_geometric.utils import (
     add_remaining_self_loops,
-    is_torch_sparse_tensor,
+    is_isplib_tensor,
     scatter,
     spmm,
     to_edge_index,
@@ -52,17 +52,17 @@ def gcn_norm(edge_index, edge_weight=None, num_nodes=None, improved=False,
         if not adj_t.has_value():
             adj_t = adj_t.fill_value(1., dtype=dtype)
         if add_self_loops:
-            adj_t = torch_sparse.fill_diag(adj_t, fill_value)
+            adj_t = isplib.fill_diag(adj_t, fill_value)
 
-        deg = torch_sparse.sum(adj_t, dim=1)
+        deg = isplib.sum(adj_t, dim=1)
         deg_inv_sqrt = deg.pow_(-0.5)
         deg_inv_sqrt.masked_fill_(deg_inv_sqrt == float('inf'), 0.)
-        adj_t = torch_sparse.mul(adj_t, deg_inv_sqrt.view(-1, 1))
-        adj_t = torch_sparse.mul(adj_t, deg_inv_sqrt.view(1, -1))
+        adj_t = isplib.mul(adj_t, deg_inv_sqrt.view(-1, 1))
+        adj_t = isplib.mul(adj_t, deg_inv_sqrt.view(1, -1))
 
         return adj_t
 
-    if is_torch_sparse_tensor(edge_index):
+    if is_isplib_tensor(edge_index):
         assert edge_index.size(0) == edge_index.size(1)
 
         if edge_index.layout == torch.sparse_csc:

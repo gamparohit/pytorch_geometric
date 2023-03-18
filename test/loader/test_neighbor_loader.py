@@ -5,7 +5,7 @@ from time import sleep
 import numpy as np
 import pytest
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 import torch_geometric.typing
 from torch_geometric.data import Data, HeteroData
@@ -499,7 +499,7 @@ def test_pyg_lib_homo_neighbor_loader():
 
     sample = torch.ops.pyg.neighbor_sample
     out1 = sample(colptr, row, seed, [-1, -1], None, None, True)
-    sample = torch.ops.torch_sparse.neighbor_sample
+    sample = torch.ops.isplib.neighbor_sample
     out2 = sample(colptr, row, seed, [-1, -1], False, True)
 
     row1, col1, node_id1, edge_id1 = out1[:4]
@@ -538,7 +538,7 @@ def test_pyg_lib_hetero_neighbor_loader():
     out1 = sample(node_types, edge_types, colptr_dict, row_dict, seed_dict,
                   num_neighbors_dict, None, None, True, False, True, False,
                   "uniform", True)
-    sample = torch.ops.torch_sparse.hetero_neighbor_sample
+    sample = torch.ops.isplib.hetero_neighbor_sample
     out2 = sample(node_types, edge_types, colptr_dict, row_dict, seed_dict,
                   num_neighbors_dict, 2, False, True)
 

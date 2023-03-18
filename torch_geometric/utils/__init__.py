@@ -25,7 +25,7 @@ from .select import select, narrow
 from .to_dense_batch import to_dense_batch
 from .to_dense_adj import to_dense_adj
 from .nested import to_nested_tensor, from_nested_tensor
-from .sparse import (dense_to_sparse, is_sparse, is_torch_sparse_tensor,
+from .sparse import (dense_to_sparse, is_sparse, is_isplib_tensor,
                      to_torch_coo_tensor, to_torch_csr_tensor,
                      to_torch_csc_tensor, to_edge_index)
 from .spmm import spmm
@@ -91,7 +91,7 @@ __all__ = [
     'to_nested_tensor',
     'from_nested_tensor',
     'dense_to_sparse',
-    'is_torch_sparse_tensor',
+    'is_isplib_tensor',
     'is_sparse',
     'to_torch_coo_tensor',
     'to_torch_csr_tensor',

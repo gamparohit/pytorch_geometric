@@ -288,7 +288,7 @@ if __name__ == '__main__':
     add('--datasets', nargs='+',
         default=['ogbn-mag', 'ogbn-products', 'Reddit'], type=str)
     add('--use-sparse-tensor', action='store_true',
-        help='use torch_sparse.SparseTensor as graph storage format')
+        help='use isplib.SparseTensor as graph storage format')
     add('--models', nargs='+',
         default=['edge_cnn', 'gat', 'gcn', 'pna', 'rgat', 'rgcn'], type=str)
     add('--root', default='../../data', type=str,

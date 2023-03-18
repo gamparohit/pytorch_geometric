@@ -11,25 +11,25 @@ from torch_geometric.utils import sort_edge_index
 class ToSparseTensor(BaseTransform):
     r"""Converts the :obj:`edge_index` attributes of a homogeneous or
     heterogeneous data object into a (transposed)
-    :class:`torch_sparse.SparseTensor` object with key :obj:`adj_t`
+    :class:`isplib.SparseTensor` object with key :obj:`adj_t`
     (functional name: :obj:`to_sparse_tensor`).
 
     .. note::
 
         In case of composing multiple transforms, it is best to convert the
-        :obj:`data` object to a :class:`~torch_sparse.SparseTensor` as late as
+        :obj:`data` object to a :class:`~isplib.SparseTensor` as late as
         possible, since there exist some transforms that are only able to
         operate on :obj:`data.edge_index` for now.
 
     Args:
         attr (str, optional): The name of the attribute to add as a value to
-            the :class:`~torch_sparse.SparseTensor` object (if present).
+            the :class:`~isplib.SparseTensor` object (if present).
             (default: :obj:`edge_weight`)
         remove_edge_index (bool, optional): If set to :obj:`False`, the
             :obj:`edge_index` tensor will not be removed.
             (default: :obj:`True`)
         fill_cache (bool, optional): If set to :obj:`False`, will not fill the
-            underlying :class:`~torch_sparse.SparseTensor` cache.
+            underlying :class:`~isplib.SparseTensor` cache.
             (default: :obj:`True`)
     """
     def __init__(self, attr: Optional[str] = 'edge_weight',

@@ -3,11 +3,11 @@ from torch import Tensor
 
 from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.nn.dense.linear import Linear
-from torch_geometric.typing import Adj, OptTensor, SparseTensor, torch_sparse
+from torch_geometric.typing import Adj, OptTensor, SparseTensor, isplib
 from torch_geometric.utils import (
     add_self_loops,
     degree,
-    is_torch_sparse_tensor,
+    is_isplib_tensor,
     remove_self_loops,
     spmm,
     to_edge_index,
@@ -77,16 +77,16 @@ class ClusterGCNConv(MessagePassing):
             assert edge_index.size(0) == edge_index.size(1)
 
             if self.add_self_loops:
-                edge_index = torch_sparse.set_diag(edge_index)
+                edge_index = isplib.set_diag(edge_index)
 
             col, row, _ = edge_index.coo()  # Transposed.
-            deg_inv = 1. / torch_sparse.sum(edge_index, dim=1).clamp_(1.)
+            deg_inv = 1. / isplib.sum(edge_index, dim=1).clamp_(1.)
 
             edge_weight = deg_inv[col]
             edge_weight[row == col] += self.diag_lambda * deg_inv
             edge_index = edge_index.set_value(edge_weight, layout='coo')
 
-        elif is_torch_sparse_tensor(edge_index):
+        elif is_isplib_tensor(edge_index):
             assert edge_index.size(0) == edge_index.size(1)
 
             if edge_index.layout == torch.sparse_csc:

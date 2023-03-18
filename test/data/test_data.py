@@ -3,7 +3,7 @@ import copy
 import pytest
 import torch
 import torch.multiprocessing as mp
-import torch_sparse
+import isplib
 
 import torch_geometric
 from torch_geometric.data import Data
@@ -397,7 +397,7 @@ def test_basic_graph_store():
     data = Data()
 
     edge_index = torch.LongTensor([[0, 1], [1, 2]])
-    adj = torch_sparse.SparseTensor(row=edge_index[0], col=edge_index[1])
+    adj = isplib.SparseTensor(row=edge_index[0], col=edge_index[1])
 
     def assert_equal_tensor_tuple(expected, actual):
         assert len(expected) == len(actual)

@@ -1,7 +1,7 @@
 import pytest
 import torch
 from torch import Tensor, nn
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import Linear, SAGEConv, summary, to_hetero
 from torch_geometric.nn.models import GCN

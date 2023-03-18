@@ -33,7 +33,7 @@ build:
 test:
   imports:
     - torch_scatter
-    - torch_sparse
+    - isplib
     - torch_cluster
     - torch_geometric
     - torch_geometric.nn

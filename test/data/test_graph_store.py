@@ -1,6 +1,6 @@
 import pytest
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.data.graph_store import EdgeAttr, EdgeLayout
 from torch_geometric.testing import MyGraphStore, get_random_edge_index

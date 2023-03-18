@@ -9,7 +9,7 @@ from torch_geometric.typing import (
     OptTensor,
     PairTensor,
     SparseTensor,
-    torch_sparse,
+    isplib,
 )
 from torch_geometric.utils import add_self_loops, remove_self_loops, softmax
 
@@ -128,7 +128,7 @@ class PointTransformerConv(MessagePassing):
                 edge_index, _ = add_self_loops(
                     edge_index, num_nodes=min(pos[0].size(0), pos[1].size(0)))
             elif isinstance(edge_index, SparseTensor):
-                edge_index = torch_sparse.set_diag(edge_index)
+                edge_index = isplib.set_diag(edge_index)
 
         # propagate_type: (x: PairTensor, pos: PairTensor, alpha: PairTensor)
         out = self.propagate(edge_index, x=x, pos=pos, alpha=alpha, size=None)

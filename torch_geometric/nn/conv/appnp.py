@@ -6,7 +6,7 @@ from torch import Tensor
 from torch_geometric.nn.conv import MessagePassing
 from torch_geometric.nn.conv.gcn_conv import gcn_norm
 from torch_geometric.typing import Adj, OptPairTensor, OptTensor, SparseTensor
-from torch_geometric.utils import is_torch_sparse_tensor, spmm, to_edge_index
+from torch_geometric.utils import is_isplib_tensor, spmm, to_edge_index
 from torch_geometric.utils.sparse import set_sparse_value
 
 
@@ -108,7 +108,7 @@ class APPNP(MessagePassing):
         for k in range(self.K):
             if self.dropout > 0 and self.training:
                 if isinstance(edge_index, Tensor):
-                    if is_torch_sparse_tensor(edge_index):
+                    if is_isplib_tensor(edge_index):
                         _, edge_weight = to_edge_index(edge_index)
                         edge_weight = F.dropout(edge_weight, p=self.dropout)
                         edge_index = set_sparse_value(edge_index, edge_weight)

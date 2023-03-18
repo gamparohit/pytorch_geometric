@@ -1,5 +1,5 @@
 import torch
-from torch_sparse import SparseTensor
+from isplib import SparseTensor
 
 from torch_geometric.nn import GraphConv
 from torch_geometric.testing import is_full_test
@@ -13,8 +13,8 @@ def test_graph_conv():
     value = torch.randn(edge_index.size(1))
     adj1 = SparseTensor(row=row, col=col, sparse_sizes=(4, 4))
     adj2 = SparseTensor(row=row, col=col, value=value, sparse_sizes=(4, 4))
-    adj3 = adj1.to_torch_sparse_csc_tensor()
-    adj4 = adj2.to_torch_sparse_csc_tensor()
+    adj3 = adj1.to_isplib_csc_tensor()
+    adj4 = adj2.to_isplib_csc_tensor()
 
     conv = GraphConv(8, 32)
     assert str(conv) == 'GraphConv(8, 32)'
@@ -46,8 +46,8 @@ def test_graph_conv():
 
     adj1 = adj1.sparse_resize((4, 2))
     adj2 = adj2.sparse_resize((4, 2))
-    adj3 = adj1.to_torch_sparse_csc_tensor()
-    adj4 = adj2.to_torch_sparse_csc_tensor()
+    adj3 = adj1.to_isplib_csc_tensor()
+    adj4 = adj2.to_isplib_csc_tensor()
     conv = GraphConv((8, 16), 32)
     assert str(conv) == 'GraphConv((8, 16), 32)'
     out21 = conv((x1, x2), edge_index)

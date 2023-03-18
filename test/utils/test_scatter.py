@@ -65,8 +65,8 @@ if __name__ == '__main__':
     # * "mean": Prefer manual implementation via `scatter_add_` + `count`
     # * "min"/"max":
     #   * Prefer `scatter_reduce_` implementation without gradients
-    #   * Prefer `torch_sparse` implementation with gradients
-    # * "mul": Prefer `torch_sparse` implementation
+    #   * Prefer `isplib` implementation with gradients
+    # * "mul": Prefer `isplib` implementation
     #
     # Insights on CPU:
     # ================
@@ -75,7 +75,7 @@ if __name__ == '__main__':
     # * "min"/"max": Prefer `scatter_reduce_` implementation
     # * "mul" (probably not worth branching for this):
     #   * Prefer `scatter_reduce_` implementation without gradients
-    #   * Prefer `torch_sparse` implementation with gradients
+    #   * Prefer `isplib` implementation with gradients
     import argparse
 
     import torch_scatter

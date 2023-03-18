@@ -13,7 +13,7 @@ from torch_geometric.typing import (
     OptTensor,
     SparseTensor,
     pyg_lib,
-    torch_sparse,
+    isplib,
 )
 from torch_geometric.utils import index_sort, scatter, spmm
 from torch_geometric.utils.sparse import index2ptr
@@ -36,7 +36,7 @@ def masked_edge_index(edge_index, edge_mask):
 def masked_edge_index(edge_index, edge_mask):
     if isinstance(edge_index, Tensor):
         return edge_index[:, edge_mask]
-    return torch_sparse.masked_select_nnz(edge_index, edge_mask, layout='coo')
+    return isplib.masked_select_nnz(edge_index, edge_mask, layout='coo')
 
 
 class RGCNConv(MessagePassing):
@@ -187,7 +187,7 @@ class RGCNConv(MessagePassing):
             edge_type (torch.Tensor, optional): The one-dimensional relation
                 type/index for each edge in :obj:`edge_index`.
                 Should be only :obj:`None` in case :obj:`edge_index` is of type
-                :class:`torch_sparse.SparseTensor`. (default: :obj:`None`)
+                :class:`isplib.SparseTensor`. (default: :obj:`None`)
         """
         # Convert input features to a pair of node features or node indices.
         x_l: OptTensor = None

@@ -4,7 +4,7 @@ from typing import Any, Callable, List, Optional, Tuple
 import torch
 from torch import Tensor
 
-from torch_geometric.utils import is_torch_sparse_tensor
+from torch_geometric.utils import is_isplib_tensor
 
 
 def benchmark(
@@ -54,7 +54,7 @@ def benchmark(
             args = [
                 arg.detach().requires_grad_(backward)
                 if isinstance(arg, Tensor) and arg.is_floating_point()
-                and not is_torch_sparse_tensor(arg) else arg for arg in args
+                and not is_isplib_tensor(arg) else arg for arg in args
             ]
 
             if torch.cuda.is_available():

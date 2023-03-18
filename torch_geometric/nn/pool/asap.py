@@ -8,7 +8,7 @@ from torch.nn import Linear
 
 from torch_geometric.nn import LEConv
 from torch_geometric.nn.pool.topk_pool import topk
-from torch_geometric.typing import SparseTensor, torch_sparse
+from torch_geometric.typing import SparseTensor, isplib
 from torch_geometric.utils import add_remaining_self_loops, scatter, softmax
 
 
@@ -138,13 +138,13 @@ class ASAPooling(torch.nn.Module):
                          sparse_sizes=(N, N))
         S = SparseTensor(row=row, col=col, value=score, sparse_sizes=(N, N))
 
-        S = torch_sparse.index_select(S, 1, perm)
-        A = torch_sparse.matmul(torch_sparse.matmul(torch_sparse.t(S), A), S)
+        S = isplib.index_select(S, 1, perm)
+        A = isplib.matmul(isplib.matmul(isplib.t(S), A), S)
 
         if self.add_self_loops:
-            A = torch_sparse.fill_diag(A, 1.)
+            A = isplib.fill_diag(A, 1.)
         else:
-            A = torch_sparse.remove_diag(A)
+            A = isplib.remove_diag(A)
 
         row, col, edge_weight = A.coo()
         edge_index = torch.stack([row, col], dim=0)

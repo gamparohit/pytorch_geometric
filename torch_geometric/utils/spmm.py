@@ -47,7 +47,7 @@ def spmm(src: Adj, other: Tensor, reduce: str = "sum") -> Tensor:
             return torch.sparse.mm(csr, other, reduce)
         return isplib.matmul(src, other, reduce)
 
-    if not is_isplib_tensor(src):
+    if not is_torch_sparse_tensor(src):
         raise ValueError("`src` must be a `isplib.SparseTensor` "
                          f"or a `torch.sparse.Tensor` (got {type(src)}).")
 

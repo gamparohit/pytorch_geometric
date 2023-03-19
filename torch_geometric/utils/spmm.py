@@ -44,7 +44,8 @@ def spmm(src: Adj, other: Tensor, reduce: str = "sum") -> Tensor:
                 and not src.is_cuda()):
             # Use optimized PyTorch `torch.sparse.mm` path:
             csr = src.to_isplib_csr_tensor()
-            return torch.sparse.mm(csr, other, reduce)
+            #return torch.sparse.mm(csr, other, reduce)
+            return isplib.matmul(src, other, reduce)
         return isplib.matmul(src, other, reduce)
 
     if not is_isplib_tensor(src):
